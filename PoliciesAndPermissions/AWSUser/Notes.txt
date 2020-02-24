@@ -1,0 +1,85 @@
+The AWS user should have the following permissions:
+AmazonEC2FullAccess 
+AmazonEKSClusterPolicy 
+ElasticLoadBalancingFullAccess 
+AmazonECS_FullAccess 
+AmazonEKSServicePolicy 
+AmazonECSTaskExecutionRolePolicy 
+
+
+Custom Policies:
+
+ECR Permissions:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:PutImage",
+                "ecr:DeleteRepository",
+                "ecr:CreateRepository",
+                "ecr:DescribeRepositories",
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload",
+                "ecr:BatchDeleteImage"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+====================================================================================================================
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PolicyStatementToAllowUserToPassOneSpecificRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole",
+                "iam:GetRole",
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": "arn:aws:iam::965440066241:role/NodeInstanceRole"
+        }
+    ]
+}
+
+====================================================================================================================
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PolicyStatementToAllowUserToPassOneSpecificRole",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "arn:aws:iam::965440066241:role/EKSRole"
+        }
+    ]
+}
+
+====================================================================================================================
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "eks:*",
+                "iam:GetRole",
+                "iam:CreateServiceLinkedRole",
+                "route53:AssociateVPCWithHostedZone"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+====================================================================================================================
+
+
+

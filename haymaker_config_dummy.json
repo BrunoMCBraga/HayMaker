@@ -1,0 +1,95 @@
+{
+    "docker": {
+        "aws": {
+            "authorization_token": "[NO_NEED_TO_FILL]",
+            "ecr_repo_host": "965440066241.dkr.ecr.us-east-1.amazonaws.com"
+        },
+        "dockerfile_path": "[DOCKERFILE_FOLDER]",
+        "image_name": "haymaker-docker-repo/haymaker-docker",
+        "tag": "latest"
+    },
+    "ecr": {
+        "repo_name": "haymaker-docker-repo/haymaker-docker"
+    },
+    "eks": {
+        "ami_type": "AL2_x86_64",
+        "desired_size": 3,
+        "disk_size": 10,
+        "eks_cluster_name": "haymaker-eks",
+        "eks_role_arn": "",
+        "instance_type": "t3.micro",
+        "max_size": 5,
+        "min_size": 2,
+        "worker_node_group_name": "haymaker-eks-workers",
+        "worker_node_role_arn": ""
+    },
+    "kubernetes": {
+        "deployment": {
+            "container_name": "haymaker-container",
+            "container_port": 80,
+            "container_port_name": "http",
+            "deployment_name": "haymaker-deployment",
+            "image_name": "965440066241.dkr.ecr.us-east-1.amazonaws.com/haymaker-docker-repo/haymaker-docker:latest",
+            "pods_labels": {
+                "app": "haymaker"
+            },
+            "replicas_labels": {
+                "app": "haymaker"
+            }
+        },
+        "kubeconfig": "[KUBECONFIG_PATH]",
+        "service": {
+            "service_labels": {
+                "k8s-app": "kube-controller-manager"
+            },
+            "service_name": "haymaker-service",
+            "service_port": 80
+        }
+    },
+    "session_region": "us-east-1",
+    "vpc": {
+        "haymaker_vpc_tags": {
+            "project": "haymaker"
+        },
+        "private_network": [
+            {
+                "cidr": "10.0.8.0/24",
+                "region": "us-east-1a",
+                "subnet_tags": {
+                    "kubernetes.io/cluster/haymaker-eks": "shared",
+                    "kubernetes.io/role/internal-elb": "1"
+                }
+            },
+            {
+                "cidr": "10.0.4.0/24",
+                "region": "us-east-1b",
+                "subnet_tags": {
+                    "kubernetes.io/cluster/haymaker-eks": "shared",
+                    "kubernetes.io/role/internal-elb": "1"
+                }
+            }
+        ],
+        "public_network": [
+            {
+                "cidr": "10.0.1.0/24",
+                "region": "us-east-1a",
+                "subnet_tags": {
+                    "kubernetes.io/cluster/haymaker-eks": "shared",
+                    "kubernetes.io/role/elb": "1"
+                }
+            },
+            {
+                "cidr": "10.0.2.0/24",
+                "region": "us-east-1b",
+                "subnet_tags": {
+                    "kubernetes.io/cluster/haymaker-eks": "shared",
+                    "kubernetes.io/role/elb": "1"
+                }
+            }
+        ],
+        "security_groups_tags": {
+            "kubernetes.io/cluster/haymaker-eks": "owned"
+        },
+        "vpc_cidr": "10.0.0.0/16"
+    }
+}

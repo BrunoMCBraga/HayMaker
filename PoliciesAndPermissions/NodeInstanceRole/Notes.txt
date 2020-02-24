@@ -1,0 +1,4 @@
+You should create a node role with the following policies.
+AmazonEKS_CNI_Policy 
+AmazonEC2ContainerRegistryReadOnly 
+AmazonEKSWorkerNodePolicy  
