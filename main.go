@@ -4,21 +4,22 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/haymaker/commandlineparsers"
+	"github.com/haymaker/commandlinegenerators"
 	"github.com/haymaker/commandlineprocessors"
 	"github.com/haymaker/globalstringsproviders"
 )
 
 func main() {
 
-	commandlineparsers.PrepareCommandLineProcessing()
+	commandlinegenerators.PrepareCommandLineProcessing()
 
 	fmt.Println(globalstringsproviders.GetMenuPictureString())
-	commandlineparsers.ParseCommandLine()
-	parameters := commandlineparsers.GetParametersDict()
+	commandlinegenerators.ParseCommandLine()
+	parameters := commandlinegenerators.GetParametersDict()
 	processCommandLineProcessorError := commandlineprocessors.ProcessCommandLine(parameters)
 	if processCommandLineProcessorError != nil {
 		fmt.Println(errors.New("HayMaker->main->commandlineprocessors.ProcessCommandLine:" + processCommandLineProcessorError.Error()))
 	}
 
 }
+
