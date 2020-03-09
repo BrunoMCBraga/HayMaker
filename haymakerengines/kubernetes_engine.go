@@ -1,7 +1,6 @@
 package haymakerengines
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"strings"
@@ -61,7 +60,7 @@ func DescribeService() error {
 
 	fmt.Println("Getting Information for Service")
 
-	serviceListResult, serviceListError := clientConfig.CoreV1().Services(apiv1.NamespaceDefault).List(context.TODO(), metav1.ListOptions{})
+	serviceListResult, serviceListError := clientConfig.CoreV1().Services(apiv1.NamespaceDefault).List(metav1.ListOptions{})
 
 	if serviceListError != nil {
 		return errors.New("|" + "Striker->strikerengines->kubernetes_engine->DescribeService->Services.List:" + serviceListError.Error() + "|")
@@ -133,7 +132,7 @@ func SpinupContainers() error {
 
 	// Create Deployment
 	fmt.Println("Creating deployment...")
-	decploymentsCreateResult, decploymentsCreateError := deploymentsClient.Create(context.TODO(), deployment, metav1.CreateOptions{})
+	decploymentsCreateResult, decploymentsCreateError := deploymentsClient.Create(deployment)
 	if decploymentsCreateError != nil {
 		return errors.New("|" + "Striker->strikerengines->kubernetes_engine->SpinupContainers->Deployments.Create:" + decploymentsCreateError.Error() + "|")
 	}
@@ -150,7 +149,7 @@ func DeleteContainers() error {
 
 	// Create Deployment
 	fmt.Println("Deleting deployment...")
-	deploymentDeleteError := deploymentsClient.Delete(context.TODO(), deploymentName, &metav1.DeleteOptions{})
+	deploymentDeleteError := deploymentsClient.Delete(deploymentName, &metav1.DeleteOptions{})
 
 	if deploymentDeleteError != nil {
 		if !strings.Contains(deploymentDeleteError.Error(), "not found") {
@@ -171,7 +170,7 @@ func CreateService() error {
 		podsLabelsTemp[k] = v.(string)
 	}
 
-	createResult, createError := clientConfig.CoreV1().Services(apiv1.NamespaceDefault).Create(context.TODO(), &apiv1.Service{
+	createResult, createError := clientConfig.CoreV1().Services(apiv1.NamespaceDefault).Create(&apiv1.Service{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      serviceName,
 			Namespace: apiv1.NamespaceDefault,
@@ -184,7 +183,7 @@ func CreateService() error {
 			Selector: podsLabelsTemp,
 			Type:     apiv1.ServiceTypeLoadBalancer,
 		},
-	}, metav1.CreateOptions{})
+	})
 
 	if createError != nil {
 		return errors.New("|" + "Striker->strikerengines->kubernetes_engine->ExposeService->Services.Create:" + createError.Error() + "|")
@@ -204,7 +203,7 @@ func DeleteService() error {
 
 	fmt.Println("Deleting Service")
 
-	deleteError := clientConfig.CoreV1().Services(apiv1.NamespaceDefault).Delete(context.TODO(), serviceName, &metav1.DeleteOptions{})
+	deleteError := clientConfig.CoreV1().Services(apiv1.NamespaceDefault).Delete(serviceName, &metav1.DeleteOptions{})
 
 	if deleteError != nil {
 		if !strings.Contains(deleteError.Error(), "not found") {
