@@ -1,7 +1,7 @@
 # HayMaker
 
 <p align="center">
-  <img src="images/gopher.png" height=400px width=200px>
+  <img src="images/gopher.png" height=400px width=300px>
 </p>
 
 
