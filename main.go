@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/haymaker/commandlinegenerators"
-	"github.com/haymaker/commandlineprocessors"
-	"github.com/haymaker/globalstringsproviders"
+	"github.com/BrunoMCBraga/HayMaker/commandlinegenerators"
+	"github.com/BrunoMCBraga/HayMaker/commandlineprocessors"
+	"github.com/BrunoMCBraga/HayMaker/globalstringsproviders"
 )
 
 func main() {

@@ -155,7 +155,6 @@ func pushDockerImageToRemoteRepository(dockHost *string, dockVersion *string, im
 		buf := new(bytes.Buffer)
 		buf.ReadFrom(imagePushResult)
 		newStr := buf.String()
-
 		fmt.Printf(newStr)*/
 	return nil
 }

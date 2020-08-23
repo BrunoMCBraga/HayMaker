@@ -180,7 +180,7 @@ func enableVPCDNS(VPCID *string) error {
 	return nil
 }
 
-func associateRouteTableStub(internetGatewayID *string, routeTableID *string, subnetID *string) (*ec2.AssociateRouteTableOutput, error) {
+func associateRouteTableStub(routeTableID *string, subnetID *string) (*ec2.AssociateRouteTableOutput, error) {
 
 	associateRouteTableObject := &ec2.AssociateRouteTableInput{
 		RouteTableId: aws.String(*routeTableID),
@@ -617,7 +617,7 @@ func preparePrivateSubnets() error {
 			return errors.New("|" + "HayMaker->haymakerengines->vpc_engine->preparePrivateSubnets->createRouteStub:" + createRouteError.Error() + "|")
 		}
 
-		_, associateRouteTableError := associateRouteTableStub(internetGatewayID, routeTableIDs[cidr], subnetIds[cidr])
+		_, associateRouteTableError := associateRouteTableStub(routeTableIDs[cidr], subnetIds[cidr])
 		if associateRouteTableError != nil {
 			return errors.New("|" + "HayMaker->haymakerengines->vpc_engine->preparePrivateSubnets->associateRouteTableStub:" + associateRouteTableError.Error() + "|")
 		}
@@ -686,7 +686,7 @@ func preparePublicSubnets() error {
 			return errors.New("|" + "HayMaker->haymakerengines->vpc_engine->preparePublicSubnets->createRouteStub:" + createRouteError.Error() + "|")
 		}
 
-		_, associateRouteTableError := associateRouteTableStub(internetGatewayID, routeTableIDs[cidr], subnetIds[cidr])
+		_, associateRouteTableError := associateRouteTableStub(routeTableIDs[cidr], subnetIds[cidr])
 		if associateRouteTableError != nil {
 			return errors.New("|" + "HayMaker->haymakerengines->vpc_engine->preparePublicSubnets->associateRouteTableStub:" + associateRouteTableError.Error() + "|")
 		}

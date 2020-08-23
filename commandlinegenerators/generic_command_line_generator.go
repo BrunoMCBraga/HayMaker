@@ -4,7 +4,7 @@ import (
 	"flag"
 	"strings"
 
-	"github.com/haymaker/globalstringsproviders"
+	"github.com/BrunoMCBraga/HayMaker/globalstringsproviders"
 )
 
 var option *string

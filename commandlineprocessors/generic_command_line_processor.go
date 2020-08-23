@@ -12,9 +12,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/ecr"
 	"github.com/aws/aws-sdk-go/service/eks"
 	"github.com/aws/aws-sdk-go/service/elb"
-	"github.com/haymaker/globalstringsproviders"
-	"github.com/haymaker/haymakerengines"
-	"github.com/haymaker/haymakerutil"
+	"github.com/BrunoMCBraga/HayMaker/globalstringsproviders"
+	"github.com/BrunoMCBraga/HayMaker/haymakerengines"
+	"github.com/BrunoMCBraga/HayMaker/haymakerutil"
 )
 
 const defaultKubeconfigPathWithinHome string = ".kube/config"
@@ -438,8 +438,6 @@ func pushImageToRegistry(configFilePath *string) error {
 	ecrConfig = haymakerutil.BuildECRConfiguration(configStruct)
 	ecrSession = ecr.New(awsSession, aws.NewConfig().WithRegion(*regionConfig))
 	dockerConfig = haymakerutil.BuildDockerConfiguration(configStruct)
-
-	haymakerengines.InitECREngine(ecrSession, ecrConfig, dockerConfig)
 
 	haymakerengines.InitECREngine(ecrSession, ecrConfig, dockerConfig)
 
