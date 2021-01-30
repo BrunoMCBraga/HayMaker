@@ -6,15 +6,15 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/BrunoMCBraga/HayMaker/globalstringsproviders"
+	"github.com/BrunoMCBraga/HayMaker/haymakerengines"
+	"github.com/BrunoMCBraga/HayMaker/haymakerutil"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/ecr"
 	"github.com/aws/aws-sdk-go/service/eks"
 	"github.com/aws/aws-sdk-go/service/elb"
-	"github.com/BrunoMCBraga/HayMaker/globalstringsproviders"
-	"github.com/BrunoMCBraga/HayMaker/haymakerengines"
-	"github.com/BrunoMCBraga/HayMaker/haymakerutil"
 )
 
 const defaultKubeconfigPathWithinHome string = ".kube/config"
